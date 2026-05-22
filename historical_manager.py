@@ -1,13 +1,12 @@
 
-from io import StringIO
-import asyncio
 from tase_trial.tase_interactions import tase_requests
 from tase_trial.local_utils import file_handler
 import time
-from local_utils import logger
+from tase_trial.local_utils import logger
+from pathlib import Path
 
-
-
+# Project root
+ROOT_DIR = Path(__file__).resolve().parents[0]
 
 
 def getHistoData(stock_id, stDate, enDate):
@@ -33,12 +32,23 @@ def getHistoData(stock_id, stDate, enDate):
     csvData = file_handler.json_to_csv_string(JsonResponse["Data"], fields_to_keep)
 
     fileName = stock_id + " data.csv"
-    filePath = "testing_data/historic_data/"
+    filePath = ROOT_DIR / "testing_data/historic_data/"
 
-    saveRes = file_handler.save_csv_file(csvData, filePath + fileName)
+    saveRes = file_handler.save_csv_file(csvData, filePath / fileName)
 
     return saveRes
 
-getHistoData(str(662577), "1990-05-09", "2027-05-09")
+
+
+
+def loadHistoData(stock_id):
+    fileName = str(stock_id) + " data.csv"
+    filePath = ROOT_DIR / "testing_data/historic_data/"
+    saveRes = file_handler.read_csv_file(filePath / fileName)
+    if saveRes:
+        logger.simpleLog("loaded history file: " + fileName)
+    return saveRes
+
+
 
 
