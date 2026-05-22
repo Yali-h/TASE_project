@@ -1,12 +1,12 @@
-import json
+
 from pathlib import Path
 import csv
 import os
 from io import StringIO
 from tase_trial.local_utils import logger
+
+
 # key formats are important against the S3
-
-
 
 def read_csv_file(file_path):
     try:
@@ -49,13 +49,7 @@ def save_csv_file(csv_content, output_path):
     return True
 
 
-def file_exists(folder_path, filename):
-
-    full_path = os.path.join(
-        folder_path,
-        filename
-    )
-
+def file_exists(full_path):
     return os.path.isfile(full_path)
 
 
@@ -80,3 +74,7 @@ def json_to_csv_string(data_json, fields_to_keep):
 
     return csv_buffer.getvalue()
 
+
+def allFilesInDir(dir_path):
+    csv_files = list(dir_path.glob("*.csv"))
+    return csv_files

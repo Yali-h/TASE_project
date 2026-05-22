@@ -41,6 +41,8 @@ def getHistoData(stock_id, stDate, enDate):
 
 
 
+
+
 def loadHistoData(stock_id):
     fileName = str(stock_id) + " data.csv"
     filePath = ROOT_DIR / "testing_data/historic_data/"

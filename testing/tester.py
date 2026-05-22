@@ -1,12 +1,18 @@
 
-import tase_requests
+from tase_trial import historical_manager
+from tase_trial import daily_manager
 
 
+def test_HistoricalData():
+    #historical_data.getHistoData(str(662577), "1990-05-09", "2027-05-09")
+    return historical_manager.loadHistoData(662577)
 
-response_json = tase_requests.reqAllBonds()
-print(response_json)
+def test_dailyManager():
+    #didSave = daily_manager.runDailyRequest()
+    fList = daily_manager.getAllDailyFiles()
+    return fList
 
-data_json = response_json.get("data", [])
-print(data_json)
 
+stockHistory = test_dailyManager()
+print(stockHistory)
 
