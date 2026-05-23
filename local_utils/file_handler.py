@@ -4,6 +4,8 @@ import csv
 import os
 from io import StringIO
 from tase_trial.local_utils import logger
+import pandas as pd
+
 
 
 # key formats are important against the S3
@@ -24,10 +26,6 @@ def read_csv_file(file_path):
         return False
 
     return data
-
-
-def getFiles_AllDaily():
-    pass
 
 
 
@@ -75,6 +73,46 @@ def json_to_csv_string(data_json, fields_to_keep):
     return csv_buffer.getvalue()
 
 
+def jsonToCSV(data_json, fields_to_keep):
+    df = pd.DataFrame(data_json)
+    try:
+        df = df[fields_to_keep]
+    except Exception as e:
+        logger.simpleLog("Error converting JSON to CSV: " + str(e))
+    return df
+
+
+
+
 def allFilesInDir(dir_path):
     csv_files = list(dir_path.glob("*.csv"))
     return csv_files
+
+
+def save_pds_csv(PDdata_file, output_path):
+    try:
+        PDdata_file.to_csv(output_path, index = False)
+
+    except Exception as e:
+        logger.simpleLog("Error saving data:" + str(e))
+        return False
+
+    logger.simpleLog("CSV saved to: " + str(output_path))
+    return True
+
+
+def read_pds_csv(filePath):
+
+    try:
+        fileLoaded = pd.read_csv(
+            filePath,
+            encoding="utf-8-sig"
+        )
+
+    except Exception as e:
+        logger.simpleLog("Error reading data: " + str(e))
+        return False
+
+    return fileLoaded
+
+

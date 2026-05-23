@@ -3,6 +3,8 @@ from tase_trial.local_utils import file_handler
 from datetime import datetime
 from tase_trial.local_utils import logger
 from pathlib import Path
+from tase_trial import Sync_manager
+
 
 ROOT_DIR = Path(__file__).resolve().parents[0]
 
@@ -15,6 +17,7 @@ def runDailyRequest():
 
     fileName = current_date + ".csv"
     filePath = ROOT_DIR / "testing_data/daily_data/"
+
     if file_handler.file_exists(filePath / fileName):
         logger.simpleLog("denied running daily request - file " + fileName + " already exists")
         return True
@@ -25,13 +28,13 @@ def runDailyRequest():
     if file_handler.file_exists(filePath / fileName):
         logger.simpleLog("denied running daily request - data for last date " + fileName + " already exists")
         return True
-
-
     fields_to_keep = ["Name", "Id", "ShareType", "ISIN", "MarketValue", "TurnOverValueShekel", "DealsNo"
-        , "BaseRate", "HighRate", "LowRate", "OpenRate"]
+        , "BaseRate", "HighRate", "LowRate", "OpenRate", "LastRate"]
     csvData = file_handler.json_to_csv_string(response_JSON["Data"], fields_to_keep)
 
     saving_result = file_handler.save_csv_file(csvData, filePath / fileName)
+
+
     return saving_result
 
 
@@ -47,9 +50,12 @@ def loadDailyFile_byDate(date_format):
 
 
 
+def FindAllDaily():
+    return file_handler.allFilesInDir(ROOT_DIR / "testing_data/daily_data")
+
 
 def getAllDailyFiles():
-    filePath = ROOT_DIR / "testing_data/daily_data/"
+    filePath = ROOT_DIR / "testing_data/Sync_data/allDailyData.csv"
     file_list = file_handler.allFilesInDir(filePath)
     return file_list
 
