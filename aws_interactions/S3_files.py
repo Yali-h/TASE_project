@@ -8,6 +8,11 @@ from botocore.exceptions import ClientError
 
 
 
+#
+#
+#
+#
+
 s3 = boto3.client("s3")
 
 BUCKET_NAME = "tase_data"

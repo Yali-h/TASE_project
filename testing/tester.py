@@ -32,6 +32,6 @@ def test_syncManager():
 
 
 
-#test_HistoricalData()
+test_HistoricalData()
 #test_dailyManager()
-test_syncManager()
+#test_syncManager()
