@@ -24,6 +24,7 @@ Contains files with the name: **x data.csv**
 Each file is representing a stock, and should have some historic
 data that is relevant. Data should start from the earliest date
 possible, and will be updated according to daily and sync files
+
 ![img_hist.png](img_hist.png)
 
 

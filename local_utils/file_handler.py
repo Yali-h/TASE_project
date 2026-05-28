@@ -10,6 +10,7 @@ import pandas as pd
 
 # key formats are important against the S3
 
+# given file path, returns the file as csv - data list
 def read_csv_file(file_path):
     try:
         with open(
@@ -28,7 +29,7 @@ def read_csv_file(file_path):
     return data
 
 
-
+# the csv content, and a file path, saves data to file. Overwrite if needed
 def save_csv_file(csv_content, output_path):
     try:
         with open(
@@ -47,6 +48,7 @@ def save_csv_file(csv_content, output_path):
     return True
 
 
+# checks if there is a file by a certain name
 def file_exists(full_path):
     return os.path.isfile(full_path)
 
@@ -80,8 +82,6 @@ def jsonToCSV(data_json, fields_to_keep):
     except Exception as e:
         logger.simpleLog("Error converting JSON to CSV: " + str(e))
     return df
-
-
 
 
 def allFilesInDir(dir_path):

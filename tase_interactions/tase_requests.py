@@ -13,7 +13,6 @@ def reqHistoData(stock_id, stDate_formatted, enDate_formatted):
         "Origin": "https://www.tase.co.il",
         "Referer": "https://www.tase.co.il/"
     }
-
     payload = payloads.TimeRangePayload(stock_id, stDate_formatted, enDate_formatted)
 
     try:
@@ -26,14 +25,14 @@ def reqHistoData(stock_id, stDate_formatted, enDate_formatted):
         logger.simpleLog("request was unable to be sent, nothing was stored -" + str(e))
         return False
 
-
+    # TO DO - does response must have a status_code
     if response.status_code == 200:
-        logger.simpleLog("request passed for stock " + stock_id + " storing data")
+        logger.simpleLog("data pulled for stock " + stock_id)
         return response.json()
 
     else:
         logger.simpleLog("an error occurred while sending request for stock " + stock_id)
-        logger.simpleLog("got status code: " + str(response.status_code) + " no changes were made")
+        logger.simpleLog("received status code: " + str(response.status_code))
         return False
 
 
@@ -71,7 +70,7 @@ def reqAllBonds():
 
     else:
         logger.simpleLog("an error occurred while sending request to get all bonds")
-        logger.simpleLog("got status code: " + str(response.status_code) + " no changes were made")
+        logger.simpleLog("received status code: " + str(response.status_code))
         return False
 
 
